@@ -16,6 +16,7 @@ body{
   color:var(--text);
   background: linear-gradient(180deg,var(--bg), #05101a);
   min-height:100vh;
+  overflow-x: hidden;  /* Prevent horizontal scroll */
 }
 
 /* layout */
@@ -33,7 +34,7 @@ body{
 /* main */
 .main{display:flex;gap:20px;padding:22px 0}
 .left{flex:1}
-.right{width:320px}
+.right{width:320px;max-height:85vh;overflow-y:auto} /* Scroll fix */
 
 /* players grid */
 .section-title{color:var(--accent);margin:0 0 12px 0;font-size:18px}
@@ -53,47 +54,44 @@ body{
 .player-card.playing{border-color:rgba(91,203,142,0.18);box-shadow:0 12px 30px rgba(43,182,115,0.06)}
 .player-card.bench{border-color:rgba(255,183,77,0.12)}
 
-/* small badge wrapper inside card */
 .player-card .badge-wrap{display:flex;gap:6px;margin-top:6px}
 .role-badge{padding:4px 8px;border-radius:999px;font-weight:700;font-size:12px}
 .role-badge.cap{background:linear-gradient(90deg,#ffd166,#ffb74d);color:#081226}
 .role-badge.vc{background:rgba(255,255,255,0.06);color:var(--muted)}
 .role-badge.wk{background:linear-gradient(90deg,#60d394,#2bb673);color:#04210d}
 
-
-
-/* ===== Scroll Fixes (Safe — no UI/UX changes) ===== */
-
-/* Squad Modal scroll fix */
+/* Scroll Fixes */
 .modal-content {
   max-height: 80vh;
   overflow-y: auto;
 }
-
-/* Right sidebar scroll (profile + instructions) */
-.right {
-  max-height: 85vh;
-  overflow-y: auto;
-}
-
-/* Player Profile scroll */
 .profile-card {
   max-height: 80vh;
   overflow-y: auto;
 }
 
-/* Make sure body never blocks scrolling */
-body {
-  overflow-x: hidden;
-}
-
-
-
-
 /* profile card */
 .profile-card{background:var(--card);padding:16px;border-radius:12px;text-align:center;position:relative}
 .profile-card.hidden{display:none}
-.profile-card img{width:120px;height:120px;border-radius:12px;object-fit:cover;margin-bottom:8px}
+
+/* 🔥 MOBILE PROFILE IMAGE FIX */
+.profile-card img{
+  width:120px;
+  height:120px;
+  border-radius:12px;
+  object-fit:cover;
+  margin-bottom:8px;
+  max-width: 100%;
+}
+
+/* On small screens → Auto scale image */
+@media (max-width:520px){
+  .profile-card img{
+    width:100px;
+    height:100px;
+  }
+}
+
 .stats{display:flex;gap:12px;justify-content:center;margin-top:12px}
 .stat{background:var(--glass);padding:10px;border-radius:8px;min-width:70px}
 .close{position:absolute;top:8px;right:8px;background:transparent;border:none;color:var(--muted);font-size:18px;cursor:pointer}
@@ -124,14 +122,13 @@ body {
 .player-form{display:flex;flex-direction:column;gap:8px;margin-top:10px}
 .player-form input{padding:8px;border-radius:8px;background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--text)}
 
-/* mobile */
+/* responsive */
 @media (max-width:980px){
   .main{flex-direction:column}
   .right{width:100%}
   .players-grid{grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));}
 }
 
-/* small */
 @media (max-width:520px){
   .topbar-inner{flex-direction:column;align-items:flex-start;gap:8px}
   .brand{font-size:18px}
@@ -140,3 +137,13 @@ body {
   .player-card img{width:72px;height:72px}
   .player-name{font-size:13px}
 }
+
+
+
+
+
+
+
+
+
+
