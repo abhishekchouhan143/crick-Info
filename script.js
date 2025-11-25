@@ -10,7 +10,7 @@ const DEFAULT_PLAYERS = [
   {id:3,name:'Vikash Chouhan',role:'All-rounder/wc',matches:6,runs:130,wickets:18,img:'player3.png'},
   {id:4,name:'Atul Chouhan',role:'All-rounder',matches:5,runs:60,wickets:1,img:'player4.png'},
   {id:5,name:'Nitin Chouhan',role:'Batsman',matches:8,runs:50,wickets:3,img:'player5.png'},
-  {id:6,name:'Rajeev Chouhan',role:'All-rounder',matches:5,runs:90,wickets:13,img:'player6.png'},
+  {id:6,name:'Rajeev Rajput',role:'All-rounder',matches:5,runs:90,wickets:13,img:'player6.png'},
   {id:7,name:'Abhiraj Chouhan',role:'Batsman',matches:8,runs:26,wickets:5,img:'player7.png'},
   {id:8,name:'Shivansh Chouhan',role:'Batsman',matches:9,runs:10,wickets:3,img:'player8.png'},
   {id:9,name:'Nitin Chouhan',role:'Batsman',matches:4,runs:58,wickets:0,img:'player9.png'},
