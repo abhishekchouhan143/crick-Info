@@ -701,3 +701,124 @@ renderPlayers();
 function buildAdminListOnOpen(){
   if(!adminPanel.classList.contains('hidden')) buildAdminList();
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ===== CONFIG =====
+const REPO_USER = "your_github_username";
+const REPO_NAME = "your_repo_name";
+const FILE_PATH = "scores.json";
+const API_TOKEN = "your_github_token";  // Only admin will add this
+
+// ===== GET SCORE (Users side) =====
+async function fetchLiveScore() {
+    try {
+        const url = `https://raw.githubusercontent.com/${REPO_USER}/${REPO_NAME}/main/${FILE_PATH}`;
+        const res = await fetch(url + "?t=" + Date.now());  // prevent cache
+        const data = await res.json();
+
+        updateScoreUI(data); // ← your UI update function here
+    } catch (err) {
+        console.log("Error fetching live score", err);
+    }
+}
+
+// Auto refresh for all users every 3 seconds
+setInterval(fetchLiveScore, 3000);
+fetchLiveScore();
+
+// ===== UPDATE SCORE (Admin side) =====
+async function updateScoreOnGitHub(newScore) {
+    const apiURL = `https://api.github.com/repos/${REPO_USER}/${REPO_NAME}/contents/${FILE_PATH}`;
+
+    const getFile = await fetch(apiURL);
+    const fileData = await getFile.json();
+    const sha = fileData.sha;
+
+    const updatedContent = btoa(JSON.stringify(newScore, null, 2));
+
+    await fetch(apiURL, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${API_TOKEN}`
+        },
+        body: JSON.stringify({
+            message: "Score Updated",
+            content: updatedContent,
+            sha: sha
+        })
+    });
+
+    alert("Score Updated for Everyone Automatically!");
+}
+
+
+
+
+
+
+
+
+
+
+function updateScoreUI(data) {
+    document.getElementById("runs").innerText = data.runs;
+    document.getElementById("wickets").innerText = data.wickets;
+    document.getElementById("overs").innerText = data.overs;
+
+    document.getElementById("striker").innerText = data.striker;
+    document.getElementById("nonStriker").innerText = data.nonStriker;
+}
+
+
+function adminUpdate() {
+    const newScore = {
+        runs: Number(document.getElementById("in_runs").value),
+        wickets: Number(document.getElementById("in_wk").value),
+        overs: document.getElementById("in_over").value,
+        striker: document.getElementById("in_striker").value,
+        nonStriker: document.getElementById("in_nonStriker").value,
+        lastUpdated: Date.now()
+    };
+
+    updateScoreOnGitHub(newScore); // push to GitHub
+}
+
+
+
+
+
