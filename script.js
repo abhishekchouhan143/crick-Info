@@ -1,4 +1,13 @@
 
+
+
+
+
+
+
+
+
+
 // ================= Configuration =================
 // Default admin password (client-side). Change if needed.
 const ADMIN_PASSWORD = 'abhi1430';
@@ -9,14 +18,14 @@ const DEFAULT_PLAYERS = [
   {id:2,name:'Akhil Chouhan',role:'All-rounder',matches:6,runs:230,wickets:14,img:'player2.png'},
   {id:3,name:'Vikash Chouhan',role:'All-rounder/wc',matches:6,runs:130,wickets:18,img:'player3.png'},
   {id:4,name:'Atul Chouhan',role:'All-rounder',matches:5,runs:60,wickets:1,img:'player4.png'},
-  {id:5,name:'Nitin Chouhan',role:'Batsman',matches:8,runs:50,wickets:3,img:'player5.png'},
+  {id:5,name:'Nitin Chouhan',role:'Batsman/c',matches:8,runs:50,wickets:3,img:'player5.png'},
   {id:6,name:'Rajeev Rajput',role:'All-rounder',matches:5,runs:90,wickets:13,img:'player6.png'},
   {id:7,name:'Abhiraj Chouhan',role:'Batsman',matches:8,runs:26,wickets:5,img:'player7.png'},
   {id:8,name:'Shivansh Chouhan',role:'Batsman',matches:9,runs:10,wickets:3,img:'player8.png'},
   {id:9,name:'Nitin Chouhan',role:'Batsman',matches:4,runs:58,wickets:0,img:'player9.png'},
   {id:10,name:'Lucky Chouhan',role:'Batsman',matches:9,runs:0,wickets:0,img:'player10.png'},
   {id:11,name:'Aniket Chouhan',role:'All-rounder',matches:2,runs:15,wickets:6,img:'player11.png'},
-  {id:12,name:'Jatin Chouhan',role:'Batsman',matches:7,runs:8,wickets:0,img:'player12.png'},
+  {id:12,name:'Jatin Chouhan',role:'Batsman/vc',matches:7,runs:8,wickets:0,img:'player12.png'},
   {id:13,name:'Player Thirteen',role:'Batsman',matches:0,runs:0,wickets:0,img:'player13.png'},
   {id:14,name:'Player Fourteen',role:'Batsman',matches:0,runs:0,wickets:0,img:'player14.png'},
   {id:15,name:'Mit Rajput',role:'Batsman',matches:6,runs:20,wickets:3,img:'player15.png'}
@@ -701,124 +710,5 @@ renderPlayers();
 function buildAdminListOnOpen(){
   if(!adminPanel.classList.contains('hidden')) buildAdminList();
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// ===== CONFIG =====
-const REPO_USER = "your_github_username";
-const REPO_NAME = "your_repo_name";
-const FILE_PATH = "scores.json";
-const API_TOKEN = "your_github_token";  // Only admin will add this
-
-// ===== GET SCORE (Users side) =====
-async function fetchLiveScore() {
-    try {
-        const url = `https://raw.githubusercontent.com/${REPO_USER}/${REPO_NAME}/main/${FILE_PATH}`;
-        const res = await fetch(url + "?t=" + Date.now());  // prevent cache
-        const data = await res.json();
-
-        updateScoreUI(data); // ← your UI update function here
-    } catch (err) {
-        console.log("Error fetching live score", err);
-    }
-}
-
-// Auto refresh for all users every 3 seconds
-setInterval(fetchLiveScore, 3000);
-fetchLiveScore();
-
-// ===== UPDATE SCORE (Admin side) =====
-async function updateScoreOnGitHub(newScore) {
-    const apiURL = `https://api.github.com/repos/${REPO_USER}/${REPO_NAME}/contents/${FILE_PATH}`;
-
-    const getFile = await fetch(apiURL);
-    const fileData = await getFile.json();
-    const sha = fileData.sha;
-
-    const updatedContent = btoa(JSON.stringify(newScore, null, 2));
-
-    await fetch(apiURL, {
-        method: "PUT",
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${API_TOKEN}`
-        },
-        body: JSON.stringify({
-            message: "Score Updated",
-            content: updatedContent,
-            sha: sha
-        })
-    });
-
-    alert("Score Updated for Everyone Automatically!");
-}
-
-
-
-
-
-
-
-
-
-
-function updateScoreUI(data) {
-    document.getElementById("runs").innerText = data.runs;
-    document.getElementById("wickets").innerText = data.wickets;
-    document.getElementById("overs").innerText = data.overs;
-
-    document.getElementById("striker").innerText = data.striker;
-    document.getElementById("nonStriker").innerText = data.nonStriker;
-}
-
-
-function adminUpdate() {
-    const newScore = {
-        runs: Number(document.getElementById("in_runs").value),
-        wickets: Number(document.getElementById("in_wk").value),
-        overs: document.getElementById("in_over").value,
-        striker: document.getElementById("in_striker").value,
-        nonStriker: document.getElementById("in_nonStriker").value,
-        lastUpdated: Date.now()
-    };
-
-    updateScoreOnGitHub(newScore); // push to GitHub
-}
-
-
-
 
 
