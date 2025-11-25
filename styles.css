@@ -1,0 +1,142 @@
+:root{
+  --bg:#071226;
+  --card:#0f1a2b;
+  --muted:#9aa7bf;
+  --accent:#ffb74d;
+  --accent-2:#ff8a4b;
+  --glass: rgba(255,255,255,0.03);
+  --text:#e6eef8;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  color:var(--text);
+  background: linear-gradient(180deg,var(--bg), #05101a);
+  min-height:100vh;
+}
+
+/* layout */
+.container{max-width:1100px;margin:0 auto;padding:16px}
+
+/* topbar */
+.topbar{background:linear-gradient(90deg,#071226cc,var(--card));padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.03)}
+.topbar-inner{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{font-weight:800;font-size:20px;color:var(--accent)}
+.controls{display:flex;align-items:center;gap:10px}
+.counts{color:var(--muted);font-size:14px}
+.btn{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:8px 12px;border-radius:8px;color:var(--text);cursor:pointer}
+.btn.primary{background:linear-gradient(90deg,var(--accent),var(--accent-2));border:none;color:#081226;font-weight:600}
+
+/* main */
+.main{display:flex;gap:20px;padding:22px 0}
+.left{flex:1}
+.right{width:320px}
+
+/* players grid */
+.section-title{color:var(--accent);margin:0 0 12px 0;font-size:18px}
+.players-grid{display:grid;grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));gap:12px}
+.player-card{
+  background:var(--card);padding:12px;border-radius:12px;display:flex;flex-direction:column;align-items:center;gap:8px;border:2px solid transparent;cursor:pointer;transition:transform .12s, box-shadow .12s}
+.player-card:hover{transform:translateY(-6px);box-shadow:0 10px 30px rgba(0,0,0,0.5)}
+.player-card img{width:88px;height:88px;border-radius:50%;object-fit:cover;border:3px solid rgba(255,255,255,0.04)}
+.player-name{font-weight:700;font-size:14px}
+.player-role{font-size:12px;color:var(--muted)}
+.tag{font-size:12px;padding:6px 12px;border-radius:999px}
+
+/* status styles */
+.tag.playing{background:linear-gradient(90deg,#60d394,#2bb673);color:#04210d}
+.tag.bench{background:rgba(255,255,255,0.06);color:var(--muted)}
+.tag.unselected{background:transparent;color:var(--muted);border:1px dashed rgba(255,255,255,0.03)}
+.player-card.playing{border-color:rgba(91,203,142,0.18);box-shadow:0 12px 30px rgba(43,182,115,0.06)}
+.player-card.bench{border-color:rgba(255,183,77,0.12)}
+
+/* small badge wrapper inside card */
+.player-card .badge-wrap{display:flex;gap:6px;margin-top:6px}
+.role-badge{padding:4px 8px;border-radius:999px;font-weight:700;font-size:12px}
+.role-badge.cap{background:linear-gradient(90deg,#ffd166,#ffb74d);color:#081226}
+.role-badge.vc{background:rgba(255,255,255,0.06);color:var(--muted)}
+.role-badge.wk{background:linear-gradient(90deg,#60d394,#2bb673);color:#04210d}
+
+
+
+/* ===== Scroll Fixes (Safe — no UI/UX changes) ===== */
+
+/* Squad Modal scroll fix */
+.modal-content {
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+/* Right sidebar scroll (profile + instructions) */
+.right {
+  max-height: 85vh;
+  overflow-y: auto;
+}
+
+/* Player Profile scroll */
+.profile-card {
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+/* Make sure body never blocks scrolling */
+body {
+  overflow-x: hidden;
+}
+
+
+
+
+/* profile card */
+.profile-card{background:var(--card);padding:16px;border-radius:12px;text-align:center;position:relative}
+.profile-card.hidden{display:none}
+.profile-card img{width:120px;height:120px;border-radius:12px;object-fit:cover;margin-bottom:8px}
+.stats{display:flex;gap:12px;justify-content:center;margin-top:12px}
+.stat{background:var(--glass);padding:10px;border-radius:8px;min-width:70px}
+.close{position:absolute;top:8px;right:8px;background:transparent;border:none;color:var(--muted);font-size:18px;cursor:pointer}
+
+/* instructions */
+.instructions{margin-top:20px;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);padding:12px;border-radius:8px}
+.instructions h4{margin:0 0 8px 0;color:var(--accent)}
+.instructions ol{margin:0;padding-left:18px;color:var(--muted);font-size:14px}
+
+/* modal */
+.modal{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(2,6,10,0.6);z-index:1200}
+.modal.hidden{display:none}
+.modal-content{background:var(--card);padding:18px;border-radius:12px;min-width:320px;max-width:92%;position:relative;color:var(--text)}
+.squad-list{display:grid;gap:10px;margin-top:12px;max-height:60vh;overflow:auto;padding-right:6px}
+.squad-item{display:flex;align-items:center;gap:10px;padding:10px;background:rgba(255,255,255,0.02);border-radius:8px}
+.squad-item img{width:48px;height:48px;border-radius:8px}
+.footer{text-align:center;padding:12px;color:var(--muted);opacity:0.9}
+
+/* admin panel styling */
+.admin-content{max-width:880px}
+.admin-login label{display:block;margin-bottom:6px;color:var(--muted)}
+.admin-login input{width:100%;padding:8px;margin-bottom:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--text)}
+.admin-panel{margin-top:12px}
+.admin-actions{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.players-admin-list{display:grid;gap:8px;max-height:36vh;overflow:auto;padding-right:6px}
+.players-admin-item{display:flex;align-items:center;gap:10px;padding:8px;background:rgba(255,255,255,0.02);border-radius:8px}
+.players-admin-item img{width:44px;height:44px;border-radius:8px}
+.player-form{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+.player-form input{padding:8px;border-radius:8px;background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--text)}
+
+/* mobile */
+@media (max-width:980px){
+  .main{flex-direction:column}
+  .right{width:100%}
+  .players-grid{grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));}
+}
+
+/* small */
+@media (max-width:520px){
+  .topbar-inner{flex-direction:column;align-items:flex-start;gap:8px}
+  .brand{font-size:18px}
+  .controls{width:100%;display:flex;justify-content:space-between;gap:6px}
+  .players-grid{grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));gap:10px}
+  .player-card img{width:72px;height:72px}
+  .player-name{font-size:13px}
+}

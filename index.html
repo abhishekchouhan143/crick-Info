@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>My chouhan 11</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <div class="brand">MyTeam Selector</div>
+      <div class="controls">
+        <div class="counts">Playing: <span id="playingCount">0</span>/11 • Bench: <span id="benchCount">0</span>/4</div>
+        <button id="resetBtn" class="btn">Reset</button>
+        <button id="adminBtn" class="btn">Admin</button>
+        <button id="showBtn" class="btn primary">Show Squad</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container main">
+    <section class="left">
+      <h2 class="section-title">Pick Playing 11</h2>
+      <div id="playersGrid" class="players-grid" aria-live="polite"></div>
+    </section>
+
+    <aside class="right">
+      <div id="profileCard" class="profile-card hidden" role="dialog" aria-modal="false" aria-hidden="true">
+        <button id="closeProfile" class="close" aria-label="Close profile">✕</button>
+        <img id="profileImg" src="" alt="player photo" />
+        <h3 id="profileName">Player Name</h3>
+        <p id="profileRole" class="muted">Role</p>
+        <div class="stats">
+          <div class="stat"><div class="label">Matches</div><div id="statMatches">0</div></div>
+          <div class="stat"><div class="label">Runs</div><div id="statRuns">0</div></div>
+          <div class="stat"><div class="label">Wickets</div><div id="statWickets">0</div></div>
+        </div>
+        <div id="roleControlsContainer"></div>
+      </div>
+
+      <div class="instructions">
+        <h4>How to select</h4>
+        <ol>
+          <li>Click a player card to cycle: <strong>Unselected → Playing → Bench → Unselected</strong>.</li>
+          <li>Max Playing = 11, Max Bench = 4.</li>
+          <li>Click player image or name to view career/profile and assign C / VC / WK (only for Playing XI).</li>
+        </ol>
+      </div>
+    </aside>
+  </main>
+
+  <!-- Squad Modal -->
+  <div id="squadModal" class="modal hidden" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-content">
+      <button id="closeModal" class="close" aria-label="Close squad">✕</button>
+      <h3>Selected Squad</h3>
+      <div id="squadList" class="squad-list"></div>
+    </div>
+  </div>
+
+  <!-- Mobile profile modal (for small screens) -->
+  <div id="profileModal" class="modal hidden" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-content">
+      <button id="closeProfileModal" class="close" aria-label="Close profile">✕</button>
+      <img id="mProfileImg" src="" alt="player photo" class="mprofile-img"/>
+      <h3 id="mProfileName">Player</h3>
+      <p id="mProfileRole" class="muted">Role</p>
+      <div class="mstats">
+        <div class="mstat"><div class="label muted">Matches</div><div id="mMatches">0</div></div>
+        <div class="mstat"><div class="label muted">Runs</div><div id="mRuns">0</div></div>
+        <div class="mstat"><div class="label muted">Wickets</div><div id="mWickets">0</div></div>
+      </div>
+      <div id="mRoleControlsContainer" style="margin-top:10px"></div>
+    </div>
+  </div>
+
+  <!-- ADMIN Modal -->
+  <div id="adminModal" class="modal hidden" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-content admin-content">
+      <button id="closeAdmin" class="close" aria-label="Close admin">✕</button>
+      <h3>Admin Panel</h3>
+
+      <div id="adminLogin" class="admin-login">
+        <label>Enter Admin Password</label>
+        <input id="adminPw" type="password" placeholder="password" />
+        <div style="margin-top:10px;display:flex;gap:8px;">
+          <button id="adminLoginBtn" class="btn primary">Login</button>
+          <button id="adminCancelBtn" class="btn">Cancel</button>
+        </div>
+        <small style="display:block;margin-top:8px;color:var(--muted)">Please Enter Passward <strong></strong> </small>
+      </div>
+
+      <div id="adminPanel" class="admin-panel hidden">
+        <div class="admin-actions">
+          <button id="addPlayerBtn" class="btn">Add Player</button>
+          <button id="exportPlayersBtn" class="btn">Export JSON</button>
+          <button id="importPlayersBtn" class="btn">Import JSON</button>
+        </div>
+
+        <div id="playersAdminList" class="players-admin-list"></div>
+
+        <!-- Edit / Add Form -->
+        <form id="playerForm" class="player-form hidden">
+          <h4 id="formTitle">Edit Player</h4>
+          <input type="hidden" id="formId" />
+          <label>Name</label>
+          <input id="formName" type="text" required />
+          <label>Role (Batsman/Bowler/All-rounder/Wicketkeeper)</label>
+          <input id="formRole" type="text" required />
+          <label>Matches</label>
+          <input id="formMatches" type="number" min="0" />
+          <label>Runs</label>
+          <input id="formRuns" type="number" min="0" />
+          <label>Wickets</label>
+          <input id="formWickets" type="number" min="0" />
+          <label>Image URL</label>
+          <input id="formImg" type="url" placeholder="https://..." />
+          <div style="margin-top:10px;display:flex;gap:8px;">
+            <button id="savePlayerBtn" class="btn primary">Save</button>
+            <button id="cancelEditBtn" type="button" class="btn">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">Designed with ❤️ — abhishek</footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
